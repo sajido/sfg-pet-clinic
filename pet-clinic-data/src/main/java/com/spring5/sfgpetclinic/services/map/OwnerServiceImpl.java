@@ -11,6 +11,7 @@ public class OwnerServiceImpl extends AbstractMapService<Owner, Long> implements
 
     @Override
     public Owner findById(Long aLong) {
+        super.getLastId();
         return super.findById(aLong);
     }
 
@@ -23,4 +24,5 @@ public class OwnerServiceImpl extends AbstractMapService<Owner, Long> implements
     public Set<Owner> findAll() {
         return super.findAll();
     }
+
 }

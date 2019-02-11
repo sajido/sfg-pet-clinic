@@ -1,13 +1,10 @@
 package com.spring5.sfgpetclinic.services.map;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public class AbstractMapService<T, ID> {
+public class AbstractMapService<T, ID extends Long> {
 
-    protected Map<ID, T> map = new HashMap<>();
+    protected Map<Long, T> map = new HashMap<>();
 
     Set<T> findAll() {
         return new HashSet<>(map.values());
@@ -19,5 +16,11 @@ public class AbstractMapService<T, ID> {
 
     T save(ID id, T t){
         return map.put(id, t);
+    }
+
+    public Long getLastId() {
+        Long i = Collections.max(map.keySet());
+        System.out.println(i);
+        return i + 1;
     }
 }
