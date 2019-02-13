@@ -1,8 +1,10 @@
 package com.spring5.sfgpetclinic.services.map;
 
+import com.spring5.sfgpetclinic.model.BaseEntity;
+
 import java.util.*;
 
-public class AbstractMapService<T, ID extends Long> {
+public class AbstractMapService<T extends BaseEntity, ID extends Long> {
 
     protected Map<Long, T> map = new HashMap<>();
 
@@ -14,13 +16,21 @@ public class AbstractMapService<T, ID extends Long> {
         return map.get(id);
     }
 
-    T save(ID id, T t){
-        return map.put(id, t);
+    T save(T t){
+        t.setId(getLastId());
+        return map.put(t.getId(), t);
     }
 
-    public Long getLastId() {
-        Long i = Collections.max(map.keySet());
-        System.out.println(i);
-        return i + 1;
+    private Long getLastId() {
+        Long i;
+        try{
+            i = Collections.max(map.keySet());
+            System.out.println(i);
+            i++;
+        }catch (NoSuchElementException e){
+            i = 1L;
+        }
+
+        return i;
     }
 }
